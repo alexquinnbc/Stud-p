@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Study Plan Generator Test</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f9f9fb;
+      margin: 0;
+      padding: 2rem;
+      color: #333;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+    }
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    button {
+      background: #0070f3;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #0059c1;
+    }
+    .plan {
+      background: #f0f4ff;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      white-space: pre-wrap;
+    }
+    .feedback {
+      margin-top: 1.5rem;
+    }
+    .thanks {
+      color: green;
+      margin-top: 1rem;
+    }
+    .stats {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📘 On-Demand Study Plan Generator</h1>
+    <p>Are you a student trying to plan your studies more effectively? Click the button below to generate a smart study plan. Help us test this idea!</p>
+    <button onclick="generatePlan()">Generate My Study Plan</button>
+
+    <div class="plan" id="plan" style="display:none;"></div>
+
+    <div class="feedback" id="feedback" style="display:none;">
+      <p>Was this helpful?</p>
+      <button onclick="rate(true)">👍 Yes</button>
+      <button onclick="rate(false)">👎 No</button>
+      <div class="thanks" id="thanks" style="display:none;">Thanks for your feedback!</div>
+    </div>
+
+    <div class="stats" id="stats">
+      Users who clicked: <span id="clicks">0</span><br />
+      Found useful: <span id="yes">0</span> | Not useful: <span id="no">0</span>
+    </div>
+  </div>
+
+  <script>
+    let clicks = 0, yes = 0, no = 0;
+
+    function generatePlan() {
+      const examples = [
+        "Monday: 1 hour of Math\nTuesday: Read 2 chapters of History\nWednesday: Practice 3 Science problems\nThursday: Review all notes\nFriday: Take mock test",
+        "Today: Focus on weakest subject (e.g., Physics)\nTomorrow: Alternate subjects for 25 min x 3 rounds\nWeekend: Group study or peer Q&A",
+        "Study 2 hours/day: 1 hour theory, 1 hour practice\nTrack progress using a checklist\nAdjust plan every Sunday"
+      ];
+      const plan = examples[Math.floor(Math.random() * examples.length)];
+
+      document.getElementById("plan").textContent = plan;
+      document.getElementById("plan").style.display = "block";
+      document.getElementById("feedback").style.display = "block";
+      document.getElementById("thanks").style.display = "none";
+      clicks++;
+      updateStats();
+    }
+
+    function rate(isUseful) {
+      if (isUseful) yes++;
+      else no++;
+      document.getElementById("thanks").style.display = "block";
+      updateStats();
+    }
+
+    function updateStats() {
+      document.getElementById("clicks").textContent = clicks;
+      document.getElementById("yes").textContent = yes;
+      document.getElementById("no").textContent = no;
+    }
+  </script>
+</body>
+</html>
